@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>聊吧</title>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <link rel="stylesheet" href="css/mui.min.css" type="text/css"/>
+</head>
+
+
+<body>
+
+
+
+
+
+<div data-from="Sonu Joshi">
+    <ul class="chat-thread" id="message"></ul>
+
+</div>
+
+<from class="mui-form-inline " style="position: fixed;bottom: 0;margin-bottom: 25px;margin-left: 35%" >
+    <input type="text" id="text" class="mui-form-control ">
+    <button type="button"  class="mui-btn mui-btn-flat mui-btn-raised " onclick="send();">Send</button>
+</from>
+
+<script>
+    $(document).ready(function () {
+        link();
+    })
+
+    function link() {
+        var url = 'ws://192.168.199.208:8123';
+        socket = new WebSocket(url);
+        socket.onopen = function () {
+            log('连接成功')
+        }
+        socket.onmessage = function (msg) {
+            log(msg.data);
+            console.log(msg);
+        }
+        socket.onclose = function () {
+            log('无法连接到服务')
+        }
+    }
+
+    function log(var1) {
+        var mes = "<li>" + var1 + "</li>\r\n";
+        $('#message').append(mes);
+    }
+    function send() {
+
+        socket.send($('#text').val());
+    }
+    function send2() {
+        var json = JSON.stringify({'type': 'php', 'msg': $('#text2').attr('value')})
+        socket.send(json);
+    }
+</script>
+
+
+</body>
+</html>
