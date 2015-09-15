@@ -32,7 +32,7 @@ Android\WEB
 ###服务端环境要求
 
 
-带有WebSocket 支持
+带有WebSocket 支持 + Linux (Windows LOG 乱码 请修改编码 为 GBK)
 
 
 ###启动服务端
